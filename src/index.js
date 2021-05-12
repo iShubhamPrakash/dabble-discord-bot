@@ -46,11 +46,11 @@ client.on("message", async (message) => {
 			case "help":
 				message.channel
 					.send(`Just enter a command with a **$** prefix and get the result.
-        Following commannds are supported:
-        **$help**: List of all commands
-        **$weather 10001**: Returns the weather of the specified US zip,
-        **$nlp [website URL]**: Returns the result of sentiment analysis of the specified URL,
-        **$searchImage apple**: Display an image of the searched item`);
+**Following commannds are supported:**
+**$help**: List of all commands
+**$weather [a valid US zip, e.g 10001]**: Returns the weather of the specified US zip,
+**$nlp [website URL]**: Returns the result of sentiment analysis of the specified URL,
+**$searchImage [item name e.g apple]**: Display an image of the searched item`);
 				break;
 
 			case "weather":
@@ -120,10 +120,10 @@ client.on("message", async (message) => {
 
 			default:
 				message.channel.send(`Following commannds are supported:
-        $help: List of all commands
-        $weather 10001: Returns the weather of the specified US zip,
-        $nlp [website URL]: Returns the result of sentiment analysis of the specified URL,
-        $searchImage apple: Display an image of the searched item`);
+**$help**: List of all commands
+**$weather [a valid US zip, e.g 10001]**: Returns the weather of the specified US zip,
+**$nlp [website URL]**: Returns the result of sentiment analysis of the specified URL,
+**$searchImage [item name e.g apple]**: Display an image of the searched item`);
 		}
 	}
 });

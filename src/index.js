@@ -15,6 +15,10 @@ const WEATHER_API_KEY = `&appid=${process.env.OPENWEATHER_KEY}&units=metric`;
 const NLP_API_URL = "https://api.meaningcloud.com/sentiment-2.1";
 const NLP_API_KEY = process.env.MEANINGCLOUD;
 
+// Image
+const PIXABAY_API_URL = "https://pixabay.com/api/";
+const PIXABAY_API_KEY = process.env.PIXABAY_API_KEY;
+
 client.on("ready", () => {
 	console.log(`${client.user.tag} has logged in`);
 });
@@ -42,7 +46,7 @@ client.on("message", async (message) => {
 
 		console.log(CMD_NAME);
 
-		switch (CMD_NAME.toLocaleLowerCase()) {
+		switch (CMD_NAME) {
 			case "help":
 				message.channel
 					.send(`Just enter a command with a **$** prefix and get the result.
@@ -112,10 +116,33 @@ client.on("message", async (message) => {
 						"⚠️ Error: Please check if you have entered a valid URL"
 					);
 				}
-
 				break;
 
 			case "searchImage":
+				try {
+					if (!args.length) {
+						throw new Error("Invalid argument");
+					}
+
+					console.log(
+						"Inside switch  ",
+						`${PIXABAY_API_URL}?key=${PIXABAY_API_KEY}&q=${args.join("%20")}`
+					);
+					const imageData = await axios.get(
+						`${PIXABAY_API_URL}?key=${PIXABAY_API_KEY}&q=${args.join("%20")}`
+					);
+
+					console.log(imageData);
+
+					message.channel.send(
+						`⏬ Download the image: ${imageData.data.hits[0].webformatURL}`
+					);
+				} catch (e) {
+					console.log(e);
+					message.channel.send(
+						"⚠️ Error: Please check if you have entered a item name"
+					);
+				}
 				break;
 
 			default:

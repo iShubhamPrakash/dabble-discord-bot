@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { default: axios } = require("axios");
-const axiox = require("axios");
+var validUrl = require("valid-url");
 
 const { Client } = require("discord.js");
 
@@ -59,24 +59,13 @@ client.on("message", async (message) => {
 						`${WEATHER_API_URL}${args[0]}${WEATHER_API_KEY}`
 					);
 					// console.log(weatherData);
-					console.log(`🌤 Weather information:
-        Place: ${weatherData.data.name}
-
-        Wind: Speed=${weatherData.data.wind.speed}  Deg=${weatherData.data.wind.deg} Gust=${weatherData.data.wind.gust}
-
-        Temperature: ${weatherData.data.main.temp} °C
-        Min Temperature: ${weatherData.data.main.temp_min} °C
-        Max Temperature: ${weatherData.data.main.temp_max} °C
-        Pressure: ${weatherData.data.main.pressure}
-        Humidity: ${weatherData.data.main.humidity}
-        `);
 
 					message.channel.send(`🌤 **Weather information:**
 📌 **Place:** ${weatherData.data.name}
 📌 **Wind:** speed=${weatherData.data.wind.speed}  deg=${weatherData.data.wind.deg} gust=${weatherData.data.wind.gust}
 📌 **Temperature:** ${weatherData.data.main.temp} °C
-📌 **Min **Temperature: ${weatherData.data.main.temp_min} °C
-📌 **Max **Temperature: ${weatherData.data.main.temp_max} °C
+📌 **Min Temperature:** ${weatherData.data.main.temp_min} °C
+📌 **Max Temperature:** ${weatherData.data.main.temp_max} °C
 📌 **Pressure:** ${weatherData.data.main.pressure}
 📌 **Humidity:** ${weatherData.data.main.humidity}
 `);
@@ -89,6 +78,41 @@ client.on("message", async (message) => {
 				break;
 
 			case "nlp":
+				try {
+					if (!validUrl.isUri(args[0])) {
+						throw new Error("Invalid URL passed");
+					}
+
+					const nlpData = await axios.get(
+						`${NLP_API_URL}?key=${NLP_API_KEY}&of=json&txt=${args[0]}&lang=en`
+					);
+					console.log(nlpData);
+
+					const {
+						model,
+						score_tag,
+						agreement,
+						subjectivity,
+						confidence,
+						irony,
+					} = nlpData.data;
+
+					message.channel
+						.send(`🤖 **Sentiment analysis of the provided URL content:**
+📌 **Model:** ${model}
+📌 **Score Tag:** ${score_tag}
+📌 **Agreement:** ${agreement}
+📌 **Subjectivity:** ${subjectivity}
+📌 **Confidence :** ${confidence}
+📌 **Irony:** ${irony}
+`);
+				} catch (e) {
+					console.log(e);
+					message.channel.send(
+						"⚠️ Error: Please check if you have entered a valid URL"
+					);
+				}
+
 				break;
 
 			case "searchImage":

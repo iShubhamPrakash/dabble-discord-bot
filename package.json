@@ -1,24 +1,23 @@
 {
-	"name": "gpt3-quiz-discord-bot",
+	"name": "dabble-discord-bot",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node ./src/index.js",
 		"dev": "nodemon ./src/index.js"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iShubhamPrakash/gpt3-quiz-discord-bot.git"
+		"url": "git+https://github.com/iShubhamPrakash/dabble-discord-bot.git"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/iShubhamPrakash/gpt3-quiz-discord-bot/issues"
+		"url": "https://github.com/iShubhamPrakash/dabble-discord-bot/issues"
 	},
-	"homepage": "https://github.com/iShubhamPrakash/gpt3-quiz-discord-bot#readme",
+	"homepage": "https://github.com/iShubhamPrakash/dabble-discord-bot#readme",
 	"dependencies": {
 		"axios": "^0.21.1",
 		"discord.js": "^12.5.3",
